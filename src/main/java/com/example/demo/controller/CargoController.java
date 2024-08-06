@@ -14,28 +14,28 @@ import java.util.List;
 @CrossOrigin
 public class CargoController {
 
-    private final CargoService linguagemService;
+    private final CargoService cargoService;
 
     @Autowired
-    public CargoController(CargoService linguagemService) {
-        this.linguagemService = linguagemService;
+    public CargoController(CargoService cargoService) {
+        this.cargoService = cargoService;
     }
 
     @GetMapping("/{id}/skills")
     public List<Skill> getSkillsByCargoId(@PathVariable Long id) {
-        // Para esta rota, se a funcionalidade estiver fora do LinguagemService, pode ser adicionado aqui se necessário
-        // Por exemplo: return linguagemService.getSkillsByLinguagemId(id);
-        return linguagemService.getSkillsByCargoId(id);
+        // Para esta rota, se a funcionalidade estiver fora do cargoService, pode ser adicionado aqui se necessário
+        // Por exemplo: return cargoService.getSkillsByLinguagemId(id);
+        return cargoService.getSkillsByCargoId(id);
     }
 
     @GetMapping("/all")
     public List<Cargo> getAllCargos() {
-        return linguagemService.getAllCargos();
+        return cargoService.getAllCargos();
     }
 
     @PostMapping("/selected")
     public List<Skill> getSkillsForSelectedCargo(@RequestBody Cargo linguagem) {
-        return linguagemService.getSkillsForSelectedCargo(linguagem);
+        return cargoService.getSkillsForSelectedCargo(linguagem);
     }
   
 }
