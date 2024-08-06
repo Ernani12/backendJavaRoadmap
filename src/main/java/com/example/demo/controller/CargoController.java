@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.example.demo.model.Cargo;
@@ -41,6 +42,21 @@ public class CargoController {
     @PostMapping("/addc")
     public Cargo createCargo(@RequestBody Cargo cargo) {
         return cargoService.createCargo(cargo);
+    }
+
+    @DeleteMapping("/remover/{id}")
+    public void deleteCargo(@PathVariable Long id) {
+        cargoService.deleteCargo(id);
+    }
+
+    @PutMapping("/edit/{id}")
+    public ResponseEntity<Cargo> updateCargo(@PathVariable Long id, @RequestBody Cargo cargoDetails) {
+        Cargo updatedCargo = cargoService.updateCargo(id, cargoDetails);
+        if (updatedCargo != null) {
+            return ResponseEntity.ok(updatedCargo);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
   
 }
