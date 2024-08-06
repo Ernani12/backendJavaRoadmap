@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.example.demo.model.Cargo;
 import com.example.demo.model.Skill;
 import com.example.demo.repository.CargoRepository;
@@ -48,6 +47,22 @@ public class CargoService {
 
     public Cargo createCargo(Cargo cargo) {
         return cargoRepository.save(cargo);
+    }
+
+    public void deleteCargo(Long id) {
+        cargoRepository.deleteById(id);
+    }
+
+    public Cargo updateCargo(Long id, Cargo cargoDetails) {
+        Optional<Cargo> optionalCargo = cargoRepository.findById(id);
+        if (optionalCargo.isPresent()) {
+            Cargo cargo = optionalCargo.get();
+            cargo.setNome(cargoDetails.getNome());
+            return cargoRepository.save(cargo);
+        } else {
+            // Handle the case where cargo is not found
+            return null;
+        }
     }
 
 }
