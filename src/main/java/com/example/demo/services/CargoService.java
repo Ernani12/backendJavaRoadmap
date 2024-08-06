@@ -45,4 +45,9 @@ public class CargoService {
         }
     }
 
+
+    public Cargo createCargo(Cargo cargo) {
+        return cargoRepository.save(cargo);
+    }
+
 }

@@ -80,6 +80,8 @@ public class DataInitializer implements CommandLineRunner {
         angularSkill2.setNome("Services");
         angularSkill2.setCargo(angular);
 
+        angular.setSkills(Arrays.asList(angularSkill1, angularSkill2));
+
 
         Cargo eg = new Cargo();
         eg.setNome("Engennheiro de Dados");
