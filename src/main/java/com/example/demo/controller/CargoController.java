@@ -10,7 +10,7 @@ import com.example.demo.services.CargoService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/linguagens")
+@RequestMapping("/api/cargos")
 @CrossOrigin
 public class CargoController {
 
@@ -36,6 +36,11 @@ public class CargoController {
     @PostMapping("/selected")
     public List<Skill> getSkillsForSelectedCargo(@RequestBody Cargo linguagem) {
         return cargoService.getSkillsForSelectedCargo(linguagem);
+    }
+
+    @PostMapping("/addc")
+    public Cargo createCargo(@RequestBody Cargo cargo) {
+        return cargoService.createCargo(cargo);
     }
   
 }
