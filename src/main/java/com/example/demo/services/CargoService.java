@@ -1,15 +1,15 @@
 package com.example.demo.services;
 
-import java.util.List;
 
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.demo.model.Cargo;
 import com.example.demo.model.Skill;
 import com.example.demo.repository.CargoRepository;
 import com.example.demo.repository.SkillRepository;
-
 import java.util.Optional;
+
 
 @Service
 public class CargoService {
@@ -65,4 +65,32 @@ public class CargoService {
         }
     }
 
+    public Cargo addNewSkillToCargo(Long cargoId, String skillName) {
+        Optional<Cargo> cargoOptional = cargoRepository.findById(cargoId);
+        if (!cargoOptional.isPresent()) {
+            return null; // Ou lance uma exceção personalizada
+        }
+
+        String cleanedSkillName = skillName.replaceAll("\"", "").trim();
+
+        Cargo cargo = cargoOptional.get();
+
+        boolean skillExists = cargo.getSkills().stream()
+                .anyMatch(skill -> skill.getNome().equalsIgnoreCase(cleanedSkillName));
+        
+        if (!skillExists) {
+            Skill newSkill = new Skill();
+            newSkill.setNome(cleanedSkillName);
+            newSkill.setCargo(cargo);
+
+            skillRepository.save(newSkill);
+            cargo.getSkills().add(newSkill);
+            cargoRepository.save(cargo);
+        }
+
+        return cargo;
+    }
+
+
+    
 }
