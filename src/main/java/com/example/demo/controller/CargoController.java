@@ -58,5 +58,13 @@ public class CargoController {
             return ResponseEntity.notFound().build();
         }
     }
-  
+
+    @PostMapping("/add/{cargoId}/skills")
+    public ResponseEntity<Cargo> addNewSkillToCargo(@PathVariable Long cargoId, @RequestBody String skillName) {
+        Cargo updatedCargo = cargoService.addNewSkillToCargo(cargoId, skillName);
+        if (updatedCargo == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(updatedCargo);
+    }
 }
